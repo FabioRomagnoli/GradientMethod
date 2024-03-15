@@ -8,6 +8,13 @@
 
 typedef Eigen::VectorXd Vector;
 
+enum class L_rate {
+	exp_decay, 
+	inv_decay, 
+	armijo
+};
+
+
 double f(Vector x){
 	return x(0)*x(1) + 4*std::pow(x(0),4) + std::pow(x(1),2) + 3 * x(0);
 }
@@ -28,23 +35,42 @@ struct ps{
 	unsigned int k_max;
 	double a0;
 	double sig;
+	double mu;  
 };
 
+template<L_rate a>
+double learning_rate(ps p, std::function<double(Vector)> f, std::function<Vector(Vector)> gf, Vector x, double k){
+
+	if constexpr (a == L_rate::armijo){
+		double ak = p.a0;
+		while(f(x) - f(x - ak * gf(x)) < p.sig * ak * gf(x).squaredNorm()) 
+			ak = ak / 2;
+			return ak;
+
+    } else if constexpr (a == L_rate::exp_decay){
+        std::cerr << "val2\n";
+
+    } else if constexpr (a == L_rate::inv_decay) {
+        std::cerr << "val2\n";
+
+	} else {
+		return NULL;
+	}
+	
+}
+
+template<L_rate a>
 Vector gradient_method(std::function<double(Vector)> f, std::function<Vector(Vector)> gf, ps p){
 
 	Vector x_1 = Eigen::VectorXd::Map(p.init.data(), p.init.size());
 	Vector x;
-
 
 	unsigned int k = 0;
 
 	do{
 		x = x_1;
 
-		double la0 = p.a0;
-		while(f(x) - f(x - la0 * gf(x)) < p.sig * la0 * gf(x).squaredNorm()) 
-			la0 = la0 / 2;
-		std::cout << la0 << std::endl;
+		double la0 = learning_rate<a>(p, f, gf, x, k);
 
 		x_1 = x - la0 * gf(x);
 		++k;
@@ -57,9 +83,10 @@ Vector gradient_method(std::function<double(Vector)> f, std::function<Vector(Vec
 
 int main(int argc, char **argv){
 
-	struct ps p = {1e-6,1e-6, {0.0,0.0}, 1000, 2.0, 0.1};
+	struct ps p = {1e-6,1e-6, {0.0,0.0}, 1000, 2.0, 0.1, 2.0};
 
-	Vector x = gradient_method(f, gf, p);
+
+	Vector x = gradient_method<L_rate::armijo>(f, gf, p);
 
 	std::cout << x.transpose() << std::endl;
 	std::cout << f(x) << std::endl;
