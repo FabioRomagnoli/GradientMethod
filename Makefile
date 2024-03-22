@@ -18,9 +18,16 @@ INCLUDES ?= -I$(mkEigenInc)
 
 .PHONY : all $(EXEC) $(OBJS) clean distclean 
 
-EXEC = main
-SRCS = main.cpp grad.cpp
+
+# get all files *.cpp
+SRCS=$(wildcard *.cpp)
+# get the corresponding object file
 OBJS = $(SRCS:.cpp=.o)
+# get all headers in the working directory
+HEADERS=$(wildcard *.hpp)
+
+exe_sources=$(filter main%.cpp,$(SRCS))
+EXEC=$(exe_sources:.cpp=)
 
 all: $(EXEC) 
 
