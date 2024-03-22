@@ -1,8 +1,7 @@
 CXX      ?= g++
 CXXFLAGS ?= -std=c++20
 CPPFLAGS ?= -Wno-deprecated-enum-enum-conversion
-INCLUDES ?= -I/u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3
-
+INCLUDES ?= -I$(mkEigenInc)
 
 # MP_PRFX=/home/fabio/Documents/PACS/pacs-examples/Examples
 # MP_EXEC_PRFX=${prefix}
@@ -17,12 +16,10 @@ INCLUDES ?= -I/u/sw/toolchains/gcc-glibc/11.2.0/pkgs/eigen/3.3.9/include/eigen3
 # #REQUIRMENTS
 
 
-
-
 .PHONY : all $(EXEC) $(OBJS) clean distclean 
 
 EXEC = main
-SRCS = $(wildcard *.cpp)
+SRCS = main.cpp grad.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(EXEC) 
@@ -31,7 +28,7 @@ $(EXEC): $(OBJS)
 	$(CXX)  $(CXXFLAGS) $(CPPFLAGS) $(inputs) -o $@ $^
 
 $(OBJS): $(SRCS)
-	$(CXX)  $(CXXFLAGS) $(CPPFLAGS) $(INCLUDES) -c $< 
+	$(CXX)  $(CXXFLAGS) $(CPPFLAGS) $(INCLUDES) -c $^
 
 
 clean:
