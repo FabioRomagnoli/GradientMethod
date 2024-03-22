@@ -4,6 +4,7 @@
 #include "minimizer_traits.hpp"
 #include "minimizer_options.hpp"
 #include "learnRate.hpp"
+#include "gradientFiniteDifferences.hpp"
 
 #include <numbers>
 #include <cmath>
@@ -17,8 +18,8 @@ class Minimizer {
     public: 
         Minimizer() = default;
         Minimizer(MinimizerData& data, MinimizerParams& params);
-
-        Vector gradient_method();
+        
+        Vector minimizer_method();
         
     private: 
         MinimizerData data;
@@ -29,6 +30,10 @@ class Minimizer {
         std::unique_ptr<LearnRate> learnRate;
         void setLearnRate(std::unique_ptr<LearnRate> learnRate);
         double evalRate(unsigned int k);
+
+        void setGradMethod(std::unique_ptr<GradFD> gradMethod);
+        Vector evalGrad(Vector const &x);
+
 };
 
 

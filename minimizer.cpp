@@ -4,15 +4,26 @@
 Minimizer::Minimizer(MinimizerData& data_, MinimizerParams& params_): data(data_), params(params_){
     x1 = Eigen::VectorXd::Map(&params.init[0], params.init.size());
 
+
     switch(params.rateMethod){
         case EXP_DECAY: setLearnRate(std::make_unique<ExpDecay>()); break; 
         case INV_DECAY: setLearnRate(std::make_unique<InvDecay>()); break; 
-        case ARMAJO:    setLearnRate(std::make_unique<Armajo>()); break;  
+        case ARMAJO:    setLearnRate(std::make_unique<Armajo>());   break;  
     }
+
+    switch(params.gradMethod){
+        case ANALYTIC: 
+            if(data.cGFun)
+                break; 
+        case CENTERED: setGradMethod(std::make_unique<Centered>(data.cFun)); break;
+        case FORWARD:  setGradMethod(std::make_unique<Forward>(data.cFun));  break; 
+        case BACKWARD: setGradMethod(std::make_unique<Backward>(data.cFun)); break;  
+    }
+
 }
 
 
-Vector Minimizer::gradient_method(){
+Vector Minimizer::minimizer_method(){
     unsigned int k = 0;
     do{
         x = x1;
@@ -34,6 +45,15 @@ double Minimizer::evalRate(unsigned int k) {
     }
     return 0;
 }
+
+
+void Minimizer::setGradMethod(std::unique_ptr<GradFD> gradMethod) {
+    std::shared_ptr gradShared = std::move(gradMethod);
+    data.cGFun = [gradShared](const Vector& x) -> Vector {
+        return (*gradShared)(x);
+    };
+}
+
 
 
 

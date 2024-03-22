@@ -16,6 +16,8 @@ struct MinimizerParams
 	Scalar mu = 0.1;  
 
     int rateMethod = 0; 
+	int gradMethod = 0; 
+
 };
 
 struct MinimizerData 
@@ -24,10 +26,18 @@ struct MinimizerData
     ConstD1 cGFun;
 };
 
-enum L_rate {
+enum Lrate {
 	EXP_DECAY = 0, 
 	INV_DECAY = 1, 
 	ARMAJO = 2
+};
+
+enum FDType
+{
+	ANALYTIC = 0,
+  	CENTERED = 1,
+ 	FORWARD = 2,
+  	BACKWARD = 3
 };
 
 

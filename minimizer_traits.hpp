@@ -8,9 +8,10 @@
 // {
   using Scalar = double;
   using Vector = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+  // using Vector = Eigen::VectorXd;
   using Matrix = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
-  using ConstD0 = std::function<Scalar(Vector const &)>;
-  using ConstD1 = std::function<Vector(Vector const &)>;
+  using ConstD0 = std::function<Scalar(const Vector&)>;
+  using ConstD1 = std::function<Vector(const Vector&)>;
 // };
 
 #endif /* MINIMIZER_TRAITS_HPP_ */

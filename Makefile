@@ -1,19 +1,17 @@
 CXX      ?= g++
 CXXFLAGS ?= -std=c++20
 CPPFLAGS ?= -Wno-deprecated-enum-enum-conversion
-INCLUDES ?= -I$(mkEigenInc)
+INCLUDES ?= -I$(mkEigenInc) -I$(MP_INCLD_DIR)
 
-# MP_PRFX=/home/fabio/Documents/PACS/pacs-examples/Examples
-# MP_EXEC_PRFX=${prefix}
-# MP_LIB_DIR=${prefix}/lib
-# MP_INCLD_DIR=${prefix}/include 
+MP_PRFX=/home/fabio/Documents/PACS/pacs-examples/Examples
+MP_EXEC_PRFX=$(MP_PRFX)
+MP_LIB_DIR=$(MP_PRFX)/lib
+MP_INCLD_DIR=$(MP_PRFX)/include 
 
-# #REQUIRMENTS
-# MP_REQ_LIBS: -L${libdir} -lmuparser
-# MP_CPP_FLAGS: -I${includedir} 
+#REQUIRMENTS
+MP_REQ_LIBS: -L$(MP_LIB_DIR) -lmuparser
+# MP_CPP_FLAGS: -I$(MP_INCLD_DIR)
 
-
-# #REQUIRMENTS
 
 
 .PHONY : all $(EXEC) $(OBJS) clean distclean 
@@ -32,11 +30,10 @@ EXEC=$(exe_sources:.cpp=)
 all: $(EXEC) 
 
 $(EXEC): $(OBJS)
-	$(CXX)  $(CXXFLAGS) $(CPPFLAGS) $(inputs) -o $@ $^
+	$(CXX)  $(CXXFLAGS) $(MP_REQ_LIBS) $(CPPFLAGS) $(inputs) -o $@ $^
 
-$(OBJS): $(SRCS)
-	$(CXX)  $(CXXFLAGS) $(CPPFLAGS) $(INCLUDES) -c $^
-
+%.o: %.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	$(RM) $(EXEC)
