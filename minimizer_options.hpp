@@ -1,4 +1,3 @@
-
 #ifndef MINIMIZER_OPTIONS_HPP_
 #define MINIMIZER_OPTIONS_HPP_
 

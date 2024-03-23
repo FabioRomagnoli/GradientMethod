@@ -4,12 +4,11 @@ CPPFLAGS ?= -Wno-deprecated-enum-enum-conversion
 INCLUDES ?= -I$(mkEigenInc) -I$(MP_INCLD_DIR)
 
 MP_PRFX=/home/fabio/Documents/PACS/pacs-examples/Examples
-MP_EXEC_PRFX=$(MP_PRFX)
-MP_LIB_DIR=$(MP_PRFX)/lib
-MP_INCLD_DIR=$(MP_PRFX)/include 
+MP_LIB_DIR=$(MP_PRFX)/lib/muparserx
+MP_INCLD_DIR=$(MP_PRFX)/include/muparserx
 
 #REQUIRMENTS
-MP_REQ_LIBS: -L$(MP_LIB_DIR) -lmuparser
+MP_REQ_LIBS = -L$(MP_LIB_DIR) -lmuparserx
 # MP_CPP_FLAGS: -I$(MP_INCLD_DIR)
 
 
@@ -23,6 +22,7 @@ SRCS=$(wildcard *.cpp)
 OBJS = $(SRCS:.cpp=.o)
 # get all headers in the working directory
 HEADERS=$(wildcard *.hpp)
+HEADERS+=GetPot
 
 exe_sources=$(filter main%.cpp,$(SRCS))
 EXEC=$(exe_sources:.cpp=)
