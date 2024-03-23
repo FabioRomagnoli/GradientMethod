@@ -2,7 +2,3 @@
 Function minimizer. Utilizes the gradient method to mind the minimum of a multivariate function. The lerarning rate for the the utilized gradient method can be modified to achive better convergence. There are multiple choices for this learning rate. namely exponential decay, inverse decay, and the approximate line reach. 
 
 The program has been designed so that the choice of the learning rate and gradient computation can expanded to be made at runtime. This is achived through a polymorphic design that employes a base class that has a virtual () operator, making the subsequent children classes that override the operator, function objects. The decision is made through a set of switch statement over an enum of possibilities. When a method is picked a unique pointer of the child class is created and casted to a unique pointer of the base class that is a member of the class that handles computation. Any subsequent call to the picked method is routed to the children class. All the parameters of the minimizer are defined in a struct that is passed down the computation. All the vector algebra is handled by the Eigen library. 
-
-TODO 
-- GetPot to get params from file
-- Muparser to parse the function 
