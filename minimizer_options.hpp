@@ -22,11 +22,12 @@ struct MinimizerParams
 
 struct MinimizerData 
 {
-    ConstD0 cFun;
-    ConstD1 cGFun;
+    fD0 cFun;   //function to be minimized
+    fD1 cGFun;  //gradient of the function.
 };
 
-enum Lrate {
+enum Lrate 
+{
 	EXP_DECAY = 0, 
 	INV_DECAY = 1, 
 	ARMAJO = 2

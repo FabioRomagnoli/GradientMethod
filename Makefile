@@ -9,7 +9,7 @@ MP_LIB_DIR=$(MP_PRFX)/lib
 MP_INCLD_DIR=$(MP_PRFX)/include 
 
 #REQUIRMENTS
-MP_REQ_LIBS: -L$(MP_LIB_DIR) -lmuparser
+# MP_REQ_LIBS: -L$(MP_LIB_DIR) -lmuparser
 # MP_CPP_FLAGS: -I$(MP_INCLD_DIR)
 
 

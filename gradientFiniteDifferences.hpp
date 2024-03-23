@@ -7,9 +7,10 @@
 #include <limits>
 #include <iostream>
 
-/*!
- * Computing the gradient via finite differences. This enum class determines the
- * type of differencing.
+/*
+ * Computing the gradient via finite differences. 
+ * base class has  virtual () operator, that is overriden to allow choice of
+ * forward, backward and centered schemes for the computation of the gradient
  */
 
 class GradFD
@@ -17,11 +18,12 @@ class GradFD
     public:
         GradFD() = default;
 
-        //! Here you pass the function to be derived.
-        GradFD(ConstD0& f_): f(f_){};
+        // Here you pass the function to be derived.
+        GradFD(fD0& f_): f(f_){};
 
-        //! Here you change the function to be derived.
-        void setFunction(ConstD0& ff){
+        // Here you change the function to be derived.
+        void setFunction(fD0& ff)
+        {
             f = ff;
         }
 
@@ -37,27 +39,31 @@ class GradFD
         Scalar  h;
         Vector e;
 
-        ConstD0 f;
-        //! A small number used for differencing
+
+        fD0 f;
+        // A small number used for differencing
         double const smallNumber = std::sqrt(std::numeric_limits<double>::epsilon());
 };
 
 
-class Centered: public GradFD{
+class Centered: public GradFD
+{
     public:
-        Centered(ConstD0& func) : GradFD(func) {}
+        Centered(fD0& func) : GradFD(func) {}
         Vector operator()(Vector const &x) override;
 };
 
-class Forward: public GradFD{
+class Forward: public GradFD
+{
     public:
-        Forward(ConstD0& func) : GradFD(func) {}
+        Forward(fD0& func) : GradFD(func) {}
         Vector operator()(Vector const &x) override;
 };
 
-class Backward: public GradFD{
+class Backward: public GradFD
+{
     public:
-        Backward(ConstD0& func) : GradFD(func) {}
+        Backward(fD0& func) : GradFD(func) {}
         Vector operator()(Vector const &x) override;
 };
 

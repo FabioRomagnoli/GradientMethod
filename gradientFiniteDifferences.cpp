@@ -1,5 +1,6 @@
 #include "gradientFiniteDifferences.hpp"
 
+// common operations are bundled
 void GradFD::gradInit(Vector const &x){
     n = x.size();
     h = std::max(smallNumber, x.norm() * smallNumber);

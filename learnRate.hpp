@@ -4,7 +4,12 @@
 #include "minimizer_options.hpp"
 #include "minimizer_traits.hpp"
 
-
+/*
+ * Computing the learning rate. 
+ * base class has  virtual () operator, that is overriden to allow choice of
+ * Armajo rule, exponential decay and inverse decay schemes for the computation
+ * of the learning rate. 
+ */
 class LearnRate{
     public:
         LearnRate() = default;
