@@ -2,8 +2,8 @@
 #include "minimizer_options.hpp"
 #include "minimizer.hpp"
 #include "functionParser.hpp"
-
 #include "GetPot"
+
 #include <functional>
 #include <numbers>
 #include <cmath>

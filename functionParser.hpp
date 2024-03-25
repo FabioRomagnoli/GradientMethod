@@ -123,12 +123,6 @@ class functionParser
 			return ans.GetFloat();
 		}
 
-		void 
-		printExpr()
-		{
-			std::cout << My_e << std::endl;
-		}
-
 	private:
 		//number of variables is kept as member value to allow for runtime decision.
 		int M_N; 
