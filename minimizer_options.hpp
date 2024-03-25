@@ -21,8 +21,8 @@ struct MinimizerParams
 
 struct MinimizerData 
 {
-    ConstD0 cFun;
-    ConstD1 cGFun;
+    D0 f;
+    D1 gf;
 };
 
 enum Lrate {

@@ -13,11 +13,11 @@ Minimizer::Minimizer(MinimizerData& data_, MinimizerParams& params_): data(data_
 
     switch(params.gradMethod){
         case ANALYTIC: 
-            if(data.cGFun)
+            if(data.gf)
                 break; 
-        case CENTERED: setGradMethod(std::make_unique<Centered>(data.cFun)); break;
-        case FORWARD:  setGradMethod(std::make_unique<Forward>(data.cFun));  break; 
-        case BACKWARD: setGradMethod(std::make_unique<Backward>(data.cFun)); break;  
+        case CENTERED: setGradMethod(std::make_unique<Centered>(data.f)); break;
+        case FORWARD:  setGradMethod(std::make_unique<Forward>(data.f));  break; 
+        case BACKWARD: setGradMethod(std::make_unique<Backward>(data.f)); break;  
     }
 
 }
@@ -28,9 +28,9 @@ Vector Minimizer::minimizer_method(){
     do{
         x = x1;
         double ak = evalRate(k);
-        x1 = x - ak * data.cGFun(x);
+        x1 = x - ak * data.gf(x);
         ++k;
-    } while(k < params.kMax and (x1 - x).norm() >= params.stpTol and std::abs(data.cFun(x1) - data.cFun(x)) >= params.resTol);
+    } while(k < params.kMax and (x1 - x).norm() >= params.stpTol and std::abs(data.f(x1) - data.f(x)) >= params.resTol);
     return x1;
 }
 
@@ -49,7 +49,7 @@ double Minimizer::evalRate(unsigned int k) {
 
 void Minimizer::setGradMethod(std::unique_ptr<GradFD> gradMethod) {
     std::shared_ptr gradShared = std::move(gradMethod);
-    data.cGFun = [gradShared](const Vector& x) -> Vector {
+    data.gf = [gradShared](const Vector& x) -> Vector {
         return (*gradShared)(x);
     };
 }

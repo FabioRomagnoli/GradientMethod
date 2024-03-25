@@ -4,8 +4,9 @@ CPPFLAGS ?= -Wno-deprecated-enum-enum-conversion
 INCLUDES ?= -I$(mkEigenInc) -I$(MP_INCLD_DIR)
 
 MP_PRFX=/home/fabio/Documents/PACS/pacs-examples/Examples
-MP_LIB_DIR=$(MP_PRFX)/lib/muparserx
+MP_LIB_DIR=$(MP_PRFX)/lib
 MP_INCLD_DIR=$(MP_PRFX)/include/muparserx
+
 
 #REQUIRMENTS
 MP_REQ_LIBS = -L$(MP_LIB_DIR) -lmuparserx
@@ -30,7 +31,7 @@ EXEC=$(exe_sources:.cpp=)
 all: $(EXEC) 
 
 $(EXEC): $(OBJS)
-	$(CXX)  $(CXXFLAGS) $(MP_REQ_LIBS) $(CPPFLAGS) $(inputs) -o $@ $^
+	$(CXX)  $(CXXFLAGS)  $(CPPFLAGS) $(inputs) -o $@ $^ $(MP_REQ_LIBS)
 
 %.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(INCLUDES) -c $< -o $@

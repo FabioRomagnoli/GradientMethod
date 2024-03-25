@@ -18,10 +18,10 @@ class GradFD
         GradFD() = default;
 
         //! Here you pass the function to be derived.
-        GradFD(ConstD0& f_): f(f_){};
+        GradFD(D0& f_): f(f_){};
 
         //! Here you change the function to be derived.
-        void setFunction(ConstD0& ff){
+        void setFunction(D0& ff){
             f = ff;
         }
 
@@ -37,7 +37,7 @@ class GradFD
         Scalar  h;
         Vector e;
 
-        ConstD0 f;
+        D0 f;
         //! A small number used for differencing
         double const smallNumber = std::sqrt(std::numeric_limits<double>::epsilon());
 };
@@ -45,19 +45,19 @@ class GradFD
 
 class Centered: public GradFD{
     public:
-        Centered(ConstD0& func) : GradFD(func) {}
+        Centered(D0& func) : GradFD(func) {}
         Vector operator()(Vector const &x) override;
 };
 
 class Forward: public GradFD{
     public:
-        Forward(ConstD0& func) : GradFD(func) {}
+        Forward(D0& func) : GradFD(func) {}
         Vector operator()(Vector const &x) override;
 };
 
 class Backward: public GradFD{
     public:
-        Backward(ConstD0& func) : GradFD(func) {}
+        Backward(D0& func) : GradFD(func) {}
         Vector operator()(Vector const &x) override;
 };
 

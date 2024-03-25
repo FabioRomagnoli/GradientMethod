@@ -4,14 +4,11 @@
 #include "Eigen/Core"
 #include <functional>
 
-// struct Minimize_traits
-// {
-  using Scalar = double;
-  using Vector = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
-  // using Vector = Eigen::VectorXd;
-  using Matrix = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
-  using ConstD0 = std::function<Scalar(const Vector&)>;
-  using ConstD1 = std::function<Vector(const Vector&)>;
-// };
+using Scalar = double;
+using Vector = Eigen::Matrix<Scalar, Eigen::Dynamic, 1>;
+using Matrix = Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic>;
+using D0 = std::function<Scalar(const Vector&)>;
+using D1 = std::function<Vector(const Vector&)>;
+
 
 #endif /* MINIMIZER_TRAITS_HPP_ */
