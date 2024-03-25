@@ -2,7 +2,7 @@
 // all necessary info is passed by reference to minimize overhead. 
 double Armajo::rate(unsigned int k, MinimizerData& data, Vector x, MinimizerParams& params){
     double ak = params.a0;
-    while(data.cFun(x) - data.cFun(x - ak * data.cGFun(x)) < params.sig * ak * data.cGFun(x).squaredNorm()) 
+    while(data.f(x) - data.f(x - ak * data.gf(x)) < params.sig * ak * data.gf(x).squaredNorm()) 
         ak = ak / 2;
     return ak;
 }

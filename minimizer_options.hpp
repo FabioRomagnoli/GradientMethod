@@ -1,4 +1,3 @@
-
 #ifndef MINIMIZER_OPTIONS_HPP_
 #define MINIMIZER_OPTIONS_HPP_
 
@@ -22,8 +21,8 @@ struct MinimizerParams
 
 struct MinimizerData 
 {
-    fD0 cFun;   //function to be minimized
-    fD1 cGFun;  //gradient of the function.
+    D0 f;
+    D1 gf;
 };
 
 enum Lrate 
