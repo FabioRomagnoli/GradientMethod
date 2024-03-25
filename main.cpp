@@ -104,7 +104,7 @@ int main(int argc, char **argv){
 	//class that handles minimzation is istantiated
 	Minimizer min(data, params);
 
-	Vector x = mod.minimizer_method();
+	Vector x = min.minimizer_method();
 
 	std::cout << "minimum found at x = " << x.transpose() << std::endl;
 	std::cout << "with function value = " <<  data.f(x) << std::endl;

@@ -14,6 +14,7 @@ class LearnRate{
     public:
         LearnRate() = default;
         virtual double rate(unsigned int k, MinimizerData& data, Vector x, MinimizerParams& param) = 0;
+        virtual ~LearnRate() = default;
 };
 
 class Armajo: public LearnRate {

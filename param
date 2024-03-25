@@ -1,11 +1,10 @@
 # File containing necessary parameters to describe an initial value probelem
 varNum=3
+init='0.0 0.0 0.0'
 f=(x[0]-1)^2+(x[1]*x[2]-2)^3
-#f=x[0]*x[1]+4*x[0]^(4)+x[1]^(2)+3*x[0]
-#gf='x[1]+16*x[0]^(3)+3 x[0]+2*x[1]'
+
 stpTol=1e-6
 resTol=1e-6
-init='0.0 0.0 0.0'
 kMax=100000
 a0=0.1
 sig=0.1
@@ -14,3 +13,7 @@ rateMethod=2
 gradMethod=1 
 printParam=0
 printFun=0
+
+
+#f=x[0]*x[1]+4*x[0]^(4)+x[1]^(2)+3*x[0]
+#gf='x[1]+16*x[0]^(3)+3 x[0]+2*x[1]'
